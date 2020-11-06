@@ -207,10 +207,11 @@ class DatePicker extends Component {
       if (this.props.mode === "datetime") {
         this.setState({
           newDate: Moment(date),
+          date: date,
         });
       } else {
         this.setState({
-          date: Moment(date),
+          date: date,
           isPicker: false,
         });
         this.datePicked();
@@ -218,24 +219,21 @@ class DatePicker extends Component {
     }
   }
 
-  onTimePicked(event, time) {
+  onTimePicked(event, time) {    
     if (time === undefined) {
       this.setState({ isPicker: false });
     } else {
       if (this.props.mode === "datetime") {
-        const formatArray = (this.props.format || FORMATS[1]).split(" ");
-        const newTime = Moment(time).format(formatArray[1]);
-        const newDate = this.state.newDate.format(formatArray[0]);
-        const newDateTime = `${newDate} ${newTime}`;
+   
         this.setState({
-          date: newDateTime,
+          date: time,
           isPicker: false,
           newDate: "",
         });
-        this.props.onDateChange(newDateTime);
+        this.datePicked();
       } else {
         this.setState({
-          date: Moment(time),
+          date: time,
           isPicker: false,
         });
         this.datePicked();
